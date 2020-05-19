@@ -312,21 +312,10 @@ Au début d'une partie, le joueur se retrouve au commandement d'un bâtiment pri
 
 Pour assurer sa pérennité, il est nécessaire que le joueur investisse des unités utilitaires dans la récolte de ressources qu'il investira dans de nouvelles unités utilitaires ou des bâtiments de production d'unités offensives pour au final amasser une armée suffisante pour détruire le joueur advèrse.
 
+### Conventions
 
-#### Pipline de rendu Unity
-
-Ce projet utilise URP (Universal Render Pipeline) afin de profiter des dernières optimisations fournies par Unity.
-
-En effet, _URP_ offre plus de contrôle sur le rendu de l'application via C#, est plus optimisé et a vocation à remplacerer le _Built-in Render Pipeline_ dans le futur. 
-
-Ainsi, il permet d'optimiser l'application en fonction du hardware et, comme il est possible de le voir sur cette [page](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@7.2/manual/universalrp-builtin-feature-comparison.html), il permet plus de granularité concernant l'implémentation de fonctionnalités au sein du pipeline.
-
-Ce pipeline a cependant été choisi pour une raison majeure : les performances. Unity a effectué une comparaison entre ses 2 pipeline et voici le résultat : 
-![Comparaison des performances](https://i.ibb.co/kxbf3v3/image.png)
-
-De plus, URP a facilité l'ajout de _cell shading_ dans le projet en suivant simplement ce tutoriel fourni par Unity : [Tutoriel Toon Outlines](https://learn.unity.com/tutorial/custom-render-passes-with-urp#5ddc3f73edbc2a001ff7d6bc)
-
-Cependant, aucune solution n'est parfaite. _URP_ ne produit des ombres que pour les lumières directionnelles, ce qui a modifier certains points du projet. De plus, il ne permet pas encore de faire des projections et ajoute des limitations au niveau des caméras. Il a donc fallu trouver d'autres méthodes voir même des shaders entier permettant de palier à ce manque comme il sera expliqué plus tard dans ce rapport.
+* Le code suit la convention K&R.
+* Les noms du code sont écrits en anglais.
 
 ## Réalisation
 
@@ -520,7 +509,11 @@ Le premier changement fût le fait de faire hériter tous les components de `Mon
 
 Il n'est pas entièrement complèt et certaines choses diffèrent du code actuel mais tous les mécanismes importants y figurent. 
 
+#### Configuration d'Unity
 
+##### URP
+
+Pourquoi t'as fait ça ?????
 
 
 ### Mécanismes
@@ -666,142 +659,25 @@ Cependant, ceci ne nous intéresse pas étant donné qu'il ne s'agit que de la p
 Chamberlain, Paul. “Demolishing Wallhacks with VALORANT's Fog of War.” Riot Games Tech, Paul Chamberlain, 14 Apr. 2020, technology.riotgames.com/news/demolishing-wallhacks-valorants-fog-war.
 
 
- 
-## Interface Utilisateur
- 
-Pour le projet d'infographie du jeu YAARTS, la mise en place d'une interface utilisateur est inévitable. Plusieurs techniques existent pour pouvoir créer une UI dans Unity. Le but de cette partie est de décrire ces différentes méthodes avec leurs avantages et inconvénients.
+### Design
 
-Une interface utilisateur est souvent sous-estimée dans un jeu. Pourtant, c'est un élément majeur. Elle aide à la compréhension et aux actions que le joueur peut exécuter. Dans un jeu de stratégie en temps réel, l'interface peut devenir lourde en informations. L'aperçu des informations doit être rapidement vérifiable et limpide pour le joueur.
+#### Entités
 
-Le domaine de l'UX/UI est vaste. Il est impossible de résumer l'entièreté de cette thématique. Néanmoins, la présentation de certains points importants liés aux jeux vidéos est possible.
-### Expérience et interface utilisateur
-Une première recherche se porte sur l'expérience utilisateur (UX) dans les jeux vidéos. Dans les studios de développement, les développeurs sont aidés par des designers. Cela permet d'avoir une cohésion dans le jeu. Dans ce travail, les connaissances sont basées uniquement sur les projets faits précédemment par des développeurs.
+#### Animations
 
-À la conception d'une UI, il est important de suivre des règles pour que l'expérience utilisateur ne soit pas détériorée.
+### Interface utilisateur
 
-Voici une liste non exhaustive de règles :
-* S'adapter aux habitudes des utilisateurs, pas l'inverse
-<div><Figure src="https://i.imgur.com/8jAe6jD.png" title="img" caption="UX Fundamentals for Non-UX Professionals, les habitudes par rapport à l'application" width="500" center /></div>
+#### Architecture
 
-Quand le team de développement devient trop proche de leur projet, elle perd en impartialité. Elle devient experte du jeu et peut oublier le ressenti d'une personne qu'il le découvre.
+#### Panneaux
 
-* Keep It Simple and Stupid (**KISS**)
-Cette règle est universelle, autant dans le code que dans l'interface. Plus l'UI est simple est, plus il est simple de la comprendre.
+##### Sélection
 
-* Connaître l'audience visée
-Avant de créer une interface, la connaissance de l'audience est un facteur clé. Dans le cas d'un jeu vidéo, on l'adapte à l'âge, région de l'endroit de la diffusion du jeu. Beaucoup de jeux ont été modifiés pour correspondre aux moeurs de la région (ex. la différence des morts-vivants de World of Warcraft en Asie et en Amérique).
+##### Actions
 
-Pour avoir un bon feedback des utilisateurs, il est important de le séparer en plusieurs groupes.
-Voici un schéma qui représente ces différents groupes et leur priorité :
-<div><Figure src="https://i.imgur.com/ehjFt44.png" title="img" caption="Medium, what is game UX, conception steps" width="500" center /></div>
+##### Mini-map
 
-
-L'apprentissage du jeu est la première étape. Si les joueurs ne comprennent le jeu, ils ne resteront pas longtemps dessus.
-L'utilisabilité doit fournir à l'utilisateur un moyen simple de jouer au jeu (peu importe la difficulté de celui-ci). Le joueur a compris quels sont les buts à atteindre (apprentissage), mais si les contrôles ne sont pas conventionnels ou clairs, cela crée une frustration.
-La dernière étape est l'expérience émotionnelle de l'utilisateur. L'équilibre du jeu est respecté (Game design).
-
-Pour conclure cette partie, l'expérience utilisateur est un sujet très vaste et il est facile de s'y perdre. Pourtant, c'est un point crucial pour trouver un public au jeu. Cela passe par l'interface. 
-
-### Solutions proposées
-Il existe plusieurs technologies pour faire une interface en Unity. Dans ce projet, NGUI a été essayé sur le menu principal. L'interface en jeu est en UGUI.
-
-#### Unity UI (UGUI)
-Unity UI (UGUI) est actuellement le toolkit par défaut d'Unity pour développer une interface. Il utilise un canevas pour faciliter la création. Malheureusement, l'amélioration de UGUI n'était pas une priorité des développeurs. À terme, il va être remplacé par UIElements. Le système est un goulot d’étranglement de performance. Moins qu'au départ avec de différentes améliorations, mais il reste quand même une perte de performance à ce niveau. 
-
-L'architecture à utiliser est tout aussi problématique. Il existe plusieurs moyens de *bind* des événements, mais il est difficile de séparer correctement l'UI avec les données.
-
-#### Next-Gen User Interface (NGUI)
-Le Next-Gen User Interface est un plug-in pour Unity. Il permet de facilement créer une interface grâce à l'utilisation de widgets et la gestion dans l'éditeur d'Unity. Ce plug-in a été développé pour mieux gérer la création d'une interface dans Unity. Avant la version 4.6 d'Unity en janvier 2015, le système d'interface n'était pas optimisé et rendait sa création complexe et fastidieuse. NGUI a permis de faciliter l'élaboration d'une UI grâce notamment aux widgets et à l'utilisation de l'éditeur. Il était aussi plus performant au niveau de la réactivité. 
-
-Le plug-in était sous licence, mais il est possible de créer une bibliothèque de widgets si l'on possède cette licence. Beaucoup d'autres plug-ins continuent d'exister avec comme base NGUI. 
-Aujourd'hui, avec l'évolution du UGUI, NGUI a moins d'intérêt. Il permet toujours de faire des interfaces rapidement, mais n'offre plus l'optimisation dont il jouissait à l'époque.
-
-D'ailleurs, les développeurs du plug-in ont été recrutés chez Unity pour le développement de la gestion de l'interface.
-
-#### User Interface Elements (UIElements)
-UIElements est le nouveau système de GUI d'Unity. Ce système est voué à remplacer Unity UI. Il permet de créer des interfaces avec les technologies web. La création passe par des fichiers de style (*stylesheets*), une gestion des événements revus et une persistance des données. UIElements utilise format UXML pour fournir une structure à l'interface. La séparation entre le *frontend* et *backend* très utilisé en web permet une meilleure répartition entre le design et le code métier. Il permet aux développeurs et designers de mieux collaborer.
-
-Ce système offre beaucoup de nouvelles fonctionnalités par rapport à l'UGUI :
-* **The Visual Tree**: contiens tous les éléments visuels dans une fenêtre. L’arbre visuel est un objet graphique fait de nœuds légers appelés *visual elements*
-* **The Layout Engine** : positionne les éléments visuels en fonction de la propriété du layout et du style.
-* **The UXML format**: définis la structure de l’interface utilisateur
-* **Styles and Unity style sheets (USS)**: définis les propriétés de style qui définissent les dimensions et l’apparence des éléments visuels.
-* **The Event system** : communique les interactions des utilisateurs aux éléments visuels.
-* **Built-in controls**: Contextualisation des menus de contrôle
-* **Binding**: relie une propriété au contrôle visuel qui modifie la valeur de la propriété.
-* **Supporting IMGUI**: support pour le debug d'application
-* **ViewData persistence**: persistance des données d’état spécifiques à l’interface utilisateur.
-UIElements est encore très jeune. Il faut attendre encore un moment pour qu'il gagne en maturité et fournisse une base solide pour la création d'une interface. 
-
-#### Immediate Mode Graphical User Interface (IMGUI)
-Ce système est surtout utilisé pour le debug d'une application. Elle n'est pas vouée à être fournie aux utilisateurs. IMGUI est utilisé dans l'affichage d'outils de debug, la création d'inspecteurs pour des scripts ou pour la création de nouveaux fenêtres et outils pour l'environnement d'Unity.
-
-#### lien avec le/les Ch. d’infographie
-Cette partie se concentre sur les interactions (chapitre 5). Il est simple de justifier le rapprochement, l'interface utilisateur offre des informations sur l'état du jeu et les actions du joueur permettent d'interagir avec l'environnement de celui-ci. Que ce soit dans le jeu ou par le joueur, les événements sont asynchrones et demandent d'être traités à tout moment. L'interaction passe par plus biais. Le clavier, la souris est un moyen de communication avec le jeu, mais aussi les composants comme les boutons, sliders et plein d'autres.
-
-#### Modèle développé
-Le modèle développé se rapproche du jeu StarCraft 2.
-<div><Figure src="https://i.imgur.com/CDPCSd1.jpg" title="img" caption="StarCraft 2, jeu dévloppé par Blizzard" width="500" center /></div>
-Le positionnement et la gestion des événement est très proche de cet autre RTS. Cela permet de ne pas modifier les habitudes des joueurs.
-
-##### Gestion des actions
-Pour pouvoir gérer des actions avec l'interface, une séparations est fait sur plusieurs éléments.
-Voici un diagramme simplifié de la gestion d'événements : 
-
-<div><Figure src="https://i.imgur.com/b7pTYI8.png" title="img" caption="diagramme de gestion des actions" width="500" center /></div>
-Si la sélection d'unité change, le GUIActionsPanel est notifié. S'il y a un bâtiment ou un travailleur, la liste des actions valides remplit le panel d'action. A la création d'une entité on lui donne une liste d'actions qu'il peut exécuter. Ce système permet de modifier librement une action et de l'ajouter à n'importe quelle entité
-
-##### Minimap
-Pour la minimap, une camera est positionnée à une hauteur suffisante pour avoir l'effet orthographique. Dans le projet actuel e àcause de la pipeline, il n'est pas possible d'utiliser la caméra orthographique fournit par Unity.
-<div><Figure src="https://i.imgur.com/scNmZxJ.png" title="img" caption="distance de la caméra par rapport à la scène de jeu"/></div>
-La position de toutes les entités visibles est récupérée et render sur l'image les points de couleurs. Le Fog of War est aussi affiché.
-
-
-#### Relation avec les 3 piliers de l’infographie
-Une interface graphique peut avoir une relation directe avec les trois piliers de l'infographie.
-La modélisation d'objets est possible pour les présenter aux joueurs dans l'interface. Une UI à sa propre "scène" elle est souvent isolée au reste du jeu et à donc son propre rendu. L'animation permet de rendre l'interface plus ludique et fournir des informations sur l'état du jeu ete avoir un retour des actions de l'utilisateur. 
-
-#### Architecture Unity
-##### Présentation
-Les composants utilisés dans le GUI sont sur le canevas. Nous utilisons le système UGUI.
-
-<div><Figure src="https://i.imgur.com/iaI3GnS.png" title="img" caption="Hierarchie GUI" height="300" /></div>
-
-Chaque élément est dans un **gameobject** qui donne la position de l'élément pour avoir une meilleure visibilité et permet de modifier toute une partie du la GUI. Le changement de résolution est géré pour que l'UI s'adapte correctement.
-
-##### Avantages et inconvénients
-L'architecture de l'application et le pattern observer permet de rapidement mettre en place l'affichage des données et de séparer le rendu des données. Il manque des fonctionnalités de personnalisation dans l'éditeur. 
-
-### Résultats 
-Pour les résultats voici l'affichage général obtenu en jeu :
-<div><Figure src="https://i.imgur.com/GgIwPe0.jpg" title="img" caption="Jeu YAARTS avec l'interface" width="500" center /></div>
-
-Le menu de sélection qui change par rapport à la sélection. S'il y a qu'une unité, on peut voir ses attributs.
-<div><Figure src="https://i.imgur.com/fWysA3I.png" title="img" caption="Affiche tous les éléments sélectionnés" width="500" center /></div>
-<div><Figure src="https://i.imgur.com/KB0gqOS.png" title="img" caption="Sélection d'un bâtiment" width="500" center /></div>
-<div><Figure src="https://i.imgur.com/1ckkOog.png" title="img" caption="Sélection d'une unité" width="500" center /></div>
-
-La minimap qui permet de visualiser rapidement l'état de la carte avec les unités ennemies en rouge et les unités alliées en bleu. Les carrés jaunes sont les minerais d'or et en vert les arbres.
-<div><Figure src="https://i.imgur.com/SkqKkWD.png" title="img" caption="Minimap avec la position des éléments" width="500" center /></div>
-
-Une barre en haut affiche les ressources. Les trois ressources du jeu sont l'or, le bois et le nombre de populations qui appartient au joueur. La population dans un jeu de stratégie permet de limiter le nombre d'entités dans l'armée d'un joueur.
-<div><Figure src="https://i.imgur.com/oKEGKxh.png" title="img" caption="Barre des ressources" width="500" center /></div>
-
-Le cercle bleu sous les entités (une ou plusieurs) donne un visuel sur la sélection en plus du panel au milieu en bas de sélection. Les barres de vies des unités ou ressources affichent respectivement leurs points de vie ou le nombre de ressources restantes. Quand une construction est en cours la barre de vie augmente progressivement par rapport à l'avancement du bâtiment. 
-<div><Figure src="https://i.imgur.com/LXdaUyG.jpg" title="img" caption="Sélection des unités entourées en dessous" center /></div>
-<div><Figure src="https://i.imgur.com/CLWf4N9.png" title="img" caption="Ressources restantes" center /></div>
-<div><Figure src="https://i.imgur.com/A2doS5j.png" title="img" caption="Point de vie d'une unité"  center /></div>
-<div><Figure src="https://i.imgur.com/rObAsbf.png" title="img" caption="Point de vie pendant la construction" width="500" center /></div>
-
-Un menu d'actions permet au joueur d'interagir pour la création d'un bâtiment si un travailleur est sélectionné et le recrutement d'unité si c'est un bâtiment qui est choisi.
-<div><Figure src="https://i.imgur.com/UtbeRjp.png" title="img" caption="Menu de création de bâtiment" width="500" center /></div>
-<div><Figure src="https://i.imgur.com/UyZBzqo.png" title="img" caption="Menu de création d'unité" width="500" center /></div>
-
-L'UI va encore évoluer. Il faut encore plusieurs itérations avant d'arriver à une interface ergonomique et 100% fonctionnelle.
-### Conclusion
-Le projet a une interface en partie qui a la base nécessaire pour voir les possibilités du jeu. Il est assez simple de mettre en place d'autres éléments de l'UI dans le système actuel. Pour la suite, nous allons modifier le système de l'UI et passer à UIElements qui est l'avenir d’Unity. Malheureusement, le menu principal fait sur NGUI n'a pas pu être intégré. 
-
-
+##### Ressources
 
 ## Récapitulatif
 
@@ -889,24 +765,3 @@ Le fait est que nous aimons Unity et nous avons investi dans certains tools et p
 * [Unity DOTS tutorial (fr)](https://www.youtube.com/watch?v=Y33Hc9raS_Y&list=PLVko8yLzEsQJStJ15W5rYQEuEY9erJqIr&index=8)
 * [Unity DOTS CodeMonkey](https://www.youtube.com/playlist?list=PLzDRvYVwl53s40yP5RQXitbT--IRcHqba)
 * [DOTS 0.4.0](https://www.youtube.com/watch?v=aw4AkdJIF2k&list=PLS6sInD7ThM3L4AtxjixzA-3vRUjAssa4&index=4)
-
-
-
-
-
-
-
-
-
-## Références 
-### Bibliographie
-Edward Stull, « UX Fundamentals for Non-UX Professionals: User Experience Principles for Managers, Writers, Designers, and Developers », Paperback, 2018.
-Diana MacDonald, « Practical UI Patterns for Design Systems. Fast-Track Interaction Design for a Seamless User Experience », Apress, 2019.
-Dr. Ashley Godbold, Mastering UI Development with Unity, 2018.
-Steve Schoger, Adam Wathan, « Refactoring UI », 2018.
-### Webographie
-What is Games UX : medium.com/@player_research/what-is-games-user-experience-ux-and-how-does-it-help-ea35ceaa9f05
-RTS UI : lets-talk-rts-user-interface : waywardstrategy.com/2015/05/04/lets-talk-rts-user-interface-part-1-interview-with-dave-pottinger
-Building a Better RTS : polarorbit.net/2015/03/building-a-better-rts-part-2
-Strategy Game Battle UI : medium.com/@treeform/strategy-game-battle-ui-3b313ffd3769
-discussion about UGUI and the future : forum.unity.com/threads/what-is-the-future-of-ugui.573481/
